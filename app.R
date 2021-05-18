@@ -1,5 +1,10 @@
 # VITH - Visualização Interativa de testes de hipótese
 # VERSÃO 1.0
+# Pedro Diniz Guglielmeli
+
+#- - - - - - - - - - - - - - - - - - - -
+# Esse Shiny App utiliza a licença GPLv3
+#- - - - - - - - - - - - - - - - - - - -
 
 if (!require(shiny)) {
   install.packages("shiny")
@@ -82,14 +87,14 @@ ui <- fluidPage(
   
   fluidRow(
     column(
-      2,
-      HTML('<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licença Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Visualização interativa de testes de hipótese</span> de <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Pedro Diniz Guglielmeli</span> está licenciado com uma Licença <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons - Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional</a>.')#,
+      4,
+      HTML('<a rel="license" href="https://www.gnu.org/licenses/gpl-3.0.pt-br.html"><img alt="Licença GNU GLPv3" style="border-width:0" src="https://www.gnu.org/graphics/gplv3-with-text-84x42.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Visualização interativa de testes de hipótese</span> de <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Pedro Diniz Guglielmeli</span> está licenciado com uma Licença <a rel="license" href="https://www.gnu.org/licenses/gpl-3.0.pt-br.html">GNU GLPv3</a>.')
     ),
     column(
-      2,
+      8,
       p("Feito por Pedro Diniz Guglielmeli", align = "right"),
       p("Versão 1.0", align = "right"),
-      offset = 8
+      p(a(href = "https://github.com/paulk2jonas/VITH", "Código fonte"), align = "right")
     )
   )
   
