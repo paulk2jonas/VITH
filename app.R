@@ -6,6 +6,8 @@
 # Esse Shiny App utiliza a licença GPLv3
 #- - - - - - - - - - - - - - - - - - - -
 
+# Github: https://github.com/paulk2jonas/VITH
+
 if (!require(shiny)) {
   install.packages("shiny")
 }
