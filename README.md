@@ -1,2 +1,2 @@
 # VITH
- VisualizaÃ§Ã£o interativa de testes de hipÃ³tese
+ Visualização interativa de testes de hipótese
