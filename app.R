@@ -35,10 +35,10 @@ ui <- fluidPage(
     column(
       5,
       # Média da hipótese nula
-      sliderInput(inputId = "média.0", label = "Média hipotética da população", min = -5, max = 5, value = 0, step = .1, width = "100%"),
+      sliderInput(inputId = "media.0", label = "Média hipotética da população", min = -5, max = 5, value = 0, step = .1, width = "100%"),
       
       # Média da hipótese alternativa
-      sliderInput(inputId = "média.1", label = "Média da população", min = -5, max = 5, value = 3, step = .1, width = "100%"),
+      sliderInput(inputId = "media.1", label = "Média da população", min = -5, max = 5, value = 3, step = .1, width = "100%"),
       
       # Desvio padrão
       sliderInput(inputId = "sd", label = "Desvio padrão", value = 1, min = .5, max = 2, step = .1, width = "100%")
@@ -120,8 +120,8 @@ server <- function(input, output) {
   alfa.2 <- reactive(1 - input$alfa / 2)
   
   # Cria o ponto crítico do teste
-  ponto.crítico <- reactive(qnorm(p = alfa.1(), mean = input$média.0, sd = input$sd))
-  ponto.crítico.2 <- reactive(qnorm(p = alfa.2(), mean = input$média.0, sd = input$sd))
+  ponto.crítico <- reactive(qnorm(p = alfa.1(), mean = input$media.0, sd = input$sd))
+  ponto.crítico.2 <- reactive(qnorm(p = alfa.2(), mean = input$media.0, sd = input$sd))
   
   ## Cria os limites a serem usados pelo gráfico
   # Limites para poder e área de rejeição em testes unilaterais, ou poder e área de rejeição à esquerda em testes bilaterais
@@ -173,21 +173,21 @@ server <- function(input, output) {
   
   ## Cria o gráfico da hipótese alternativa
   # Cria a área de poder
-  poder <- reactive(stat_function(fun = dnorm, args = list(mean = input$média.1, sd = input$sd), geom = "area", xlim = pr(), fill = azul.esc, alpha = .3))
-  poder.2 <- reactive(stat_function(fun = dnorm, args = list(mean = input$média.1, sd = input$sd), geom = "area", xlim = pr.2(), fill = azul.esc, alpha = .3))
+  poder <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.1, sd = input$sd), geom = "area", xlim = pr(), fill = azul.esc, alpha = .3))
+  poder.2 <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.1, sd = input$sd), geom = "area", xlim = pr.2(), fill = azul.esc, alpha = .3))
   # Cria a área beta
-  area.beta <- reactive(stat_function(fun = dnorm, args = list(mean = input$média.1, sd = input$sd), geom = "area", xlim = bh(), fill = azul.cla, alpha = .3))
+  area.beta <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.1, sd = input$sd), geom = "area", xlim = bh(), fill = azul.cla, alpha = .3))
   # Cria o outline
-  curva.alt <- reactive(stat_function(fun = dnorm, args = list(mean = input$média.1, sd = input$sd), size = .75, col = azul.esc))
+  curva.alt <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.1, sd = input$sd), size = .75, col = azul.esc))
   
   # Cria o grádigo da hipótese nula
   # Cria a área de 1 - alfa
-  area.nula <- reactive(stat_function(fun = dnorm, args = list(mean = input$média.0, sd = input$sd), geom = "area", xlim = bh(), fill = verm.cla, alpha = .3))
+  area.nula <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.0, sd = input$sd), geom = "area", xlim = bh(), fill = verm.cla, alpha = .3))
   # Cria a área de rejeição
-  area.alfa <- reactive(stat_function(fun = dnorm, args = list(mean = input$média.0, sd = input$sd), geom = "area", xlim = pr(), fill = verm.esc, alpha = .3))
-  area.alfa.2 <- reactive(stat_function(fun = dnorm, args = list(mean = input$média.0, sd = input$sd), geom = "area", xlim = pr.2(), fill = verm.esc , alpha = .3))
+  area.alfa <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.0, sd = input$sd), geom = "area", xlim = pr(), fill = verm.esc, alpha = .3))
+  area.alfa.2 <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.0, sd = input$sd), geom = "area", xlim = pr.2(), fill = verm.esc , alpha = .3))
   # Cria o outline
-  curva.nula <- reactive(stat_function(fun = dnorm, args = list(mean = input$média.0, sd = input$sd), size = .75, col = verm.esc))
+  curva.nula <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.0, sd = input$sd), size = .75, col = verm.esc))
   
   # Cria a área do p-value
   xlim.p <- reactive({
@@ -196,20 +196,20 @@ server <- function(input, output) {
     } else if (input$tipo.teste == "À direita") {
       c(input$estat.teste, 7)
     } else if (input$tipo.teste == "Bilateral") {
-      x.1 <- input$média.0 - abs(abs(input$média.0) - abs(input$estat.teste))
+      x.1 <- input$media.0 - abs(abs(input$media.0) - abs(input$estat.teste))
       c(-7, x.1)
     }
   })
   xlim.p.2 <- reactive({
     if (input$tipo.teste == "Bilateral") {
-      x.2 <- input$média.0 + abs(abs(input$média.0) - abs(input$estat.teste))
+      x.2 <- input$media.0 + abs(abs(input$media.0) - abs(input$estat.teste))
       c(x.2, 7)
     } else {
       c(NA, NA)
     }
   })
-  area.p <- reactive(stat_function(fun = dnorm, args = list(mean = input$média.0, sd = input$sd), geom = "area", xlim = xlim.p(), fill = amarelo, alpha = .5))
-  area.p.2 <- reactive(stat_function(fun = dnorm, args = list(mean = input$média.0, sd = input$sd), geom = "area", xlim = xlim.p.2(), fill = amarelo, alpha = .5))
+  area.p <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.0, sd = input$sd), geom = "area", xlim = xlim.p(), fill = amarelo, alpha = .5))
+  area.p.2 <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.0, sd = input$sd), geom = "area", xlim = xlim.p.2(), fill = amarelo, alpha = .5))
   
   # Cria as "linhas críticas"
   linha.crítica <- reactive(geom_vline(aes(xintercept = ponto.crítico())))
@@ -225,22 +225,22 @@ server <- function(input, output) {
       0
     } else {
       if (input $tipo.teste == "À esquerda") {
-        pnorm(pr()[2], mean = input$média.1, sd = input$sd, lower.tail = FALSE)
+        pnorm(pr()[2], mean = input$media.1, sd = input$sd, lower.tail = FALSE)
       } else if (input$tipo.teste == "À direita") {
-        pnorm(pr()[1], mean = input$média.1, sd = input$sd)
+        pnorm(pr()[1], mean = input$media.1, sd = input$sd)
       } else if (input$tipo.teste == "Bilateral") {
-        pnorm(pr()[2], mean = input$média.1, sd = input$sd) + pnorm(pr.2()[1], mean = input$média.1, sd = input$sd, lower.tail = FALSE)
+        pnorm(pr()[2], mean = input$media.1, sd = input$sd) + pnorm(pr.2()[1], mean = input$media.1, sd = input$sd, lower.tail = FALSE)
       }
     }
   })
   poder.t <- reactive(1 - beta.t())
   p.value.t <- reactive({
     if (input $tipo.teste == "À esquerda") {
-      pnorm(xlim.p()[2], mean = input$média.0, sd = input$sd)
+      pnorm(xlim.p()[2], mean = input$media.0, sd = input$sd)
     } else if (input$tipo.teste == "À direita") {
-      pnorm(xlim.p()[1], mean = input$média.0, sd = input$sd, lower.tail = FALSE)
+      pnorm(xlim.p()[1], mean = input$media.0, sd = input$sd, lower.tail = FALSE)
     } else if (input$tipo.teste == "Bilateral") {
-      pnorm(xlim.p()[2], mean = input$média.0, sd = input$sd) + pnorm(xlim.p.2()[1], mean = input$média.0, sd = input$sd, lower.tail = FALSE)
+      pnorm(xlim.p()[2], mean = input$media.0, sd = input$sd) + pnorm(xlim.p.2()[1], mean = input$media.0, sd = input$sd, lower.tail = FALSE)
     }
   })
   # Cria as camadas dos dados
