@@ -47,7 +47,7 @@ ui <- fluidPage(
     column(
       5,
       
-      # Nível de confiança
+      # Nível de significância
       sliderInput(inputId = "alfa", label = "Nível de significância", min = 0, max = 1, value = .05, step = .01, width = "100%"),
       
       # Tipo de teste
