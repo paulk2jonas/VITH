@@ -1,5 +1,5 @@
 # VITH - Visualização Interativa de testes de hipótese
-# VERSÃO 1.0
+versão <- 1.1
 # Pedro Diniz Guglielmeli
 
 #- - - - - - - - - - - - - - - - - - - -
@@ -95,7 +95,7 @@ ui <- fluidPage(
     column(
       8,
       p("Feito por Pedro Diniz Guglielmeli", align = "right"),
-      p("Versão 1.0", align = "right"),
+      p(paste("Versão ", versão), align = "right"),
       p(a(href = "https://github.com/paulk2jonas/VITH", "Código fonte"), align = "right")
     )
   )
@@ -180,7 +180,7 @@ server <- function(input, output) {
   # Cria o outline
   curva.alt <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.1, sd = input$sd), size = .75, col = azul.esc))
   
-  # Cria o grádigo da hipótese nula
+  # Cria o gráfico da hipótese nula
   # Cria a área de 1 - alfa
   area.nula <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.0, sd = input$sd), geom = "area", xlim = bh(), fill = verm.cla, alpha = .3))
   # Cria a área de rejeição
@@ -188,6 +188,10 @@ server <- function(input, output) {
   area.alfa.2 <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.0, sd = input$sd), geom = "area", xlim = pr.2(), fill = verm.esc , alpha = .3))
   # Cria o outline
   curva.nula <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.0, sd = input$sd), size = .75, col = verm.esc))
+
+  # Cria a camada do ponto crítico
+  pcrítico <- reactive(geom_point(aes(x = ponto.crítico(), y = 0), shape = 21, fill = verm.esc, col = "white", size = 4, stroke = 2))
+  pcrítico.2 <- reactive(geom_point(aes(x = ponto.crítico.2(), y = 0), shape = 21, fill = verm.esc, col = "white", size = 4, stroke = 2))
   
   # Cria a área do p-value
   xlim.p <- reactive({
@@ -210,6 +214,9 @@ server <- function(input, output) {
   })
   area.p <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.0, sd = input$sd), geom = "area", xlim = xlim.p(), fill = amarelo, alpha = .5))
   area.p.2 <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.0, sd = input$sd), geom = "area", xlim = xlim.p.2(), fill = amarelo, alpha = .5))
+
+  # Cria a camada da estatística de teste padronizada
+  pteste <- reactive(geom_point(aes(x = input$estat.teste, y = 0), shape = 21, fill = amarelo, col = "white", size = 4, stroke = 2))
   
   # Cria as "linhas críticas"
   linha.crítica <- reactive(geom_vline(aes(xintercept = ponto.crítico())))
@@ -254,6 +261,13 @@ server <- function(input, output) {
     
     myplot <- ggplot(data = eixo.x, aes(x = x))
     
+    # Plota as "linhas críticas"
+    if (input$tipo.teste == "Bilateral") {
+      myplot <- myplot + linha.crítica() + linha.crítica.2()
+    } else {
+      myplot <- myplot + linha.crítica()
+    }
+    
     # Plota a área da hipótese alternativa
     if (input$p.h.alt == TRUE) {
       myplot <- myplot + poder() + poder.2() + area.beta()
@@ -278,12 +292,15 @@ server <- function(input, output) {
     if (input$c.h.nula == TRUE) {
       myplot <- myplot + curva.nula()
     }
-    
-    # Plota as "linhas críticas"
+
+    # Plota o ponto da estatística de teste
+    if (input$p_ligado) myplot <- myplot + pteste()
+
+    # Plota os pontos críticos
     if (input$tipo.teste == "Bilateral") {
-      myplot <- myplot + linha.crítica() + linha.crítica.2()
+      myplot <- myplot + pcrítico() + pcrítico.2()
     } else {
-      myplot <- myplot + linha.crítica()
+      myplot <- myplot + pcrítico()
     }
     
     # Plota os dados relevantes
