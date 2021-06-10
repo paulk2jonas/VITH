@@ -1,9 +1,9 @@
-# VITH - VisualizaÁ„o Interativa de testes de hipÛtese
-vers„o <- 1.1
+# VITH - Visualiza√ß√£o Interativa de testes de hip√≥tese
+vers√£o <- 1.1
 # Pedro Diniz Guglielmeli
 
 #- - - - - - - - - - - - - - - - - - - -
-# Esse Shiny App utiliza a licenÁa GPLv3
+# Esse Shiny App utiliza a licen√ßa GPLv3
 #- - - - - - - - - - - - - - - - - - - -
 
 # Github: https://github.com/paulk2jonas/VITH
@@ -18,15 +18,15 @@ if (!require(ggplot2)) {
 library(shiny)
 library(ggplot2)
 
-verm.esc <- "#913A3C" # Zona de rejeiÁ„o
-verm.cla <- "#DE6F71" # HipÛtese
+verm.esc <- "#913A3C" # Zona de rejei√ß√£o
+verm.cla <- "#DE6F71" # Hip√≥tese
 amarelo <- "#DFDD4C" # p-value
 azul.cla <- "#59ACDE" # Beta
 azul.esc <- "#417391" # Poder
 
 ui <- fluidPage(
   
-  titlePanel("VisualizaÁ„o interativa de testes de hipÛtese"),
+  titlePanel("Visualiza√ß√£o interativa de testes de hip√≥tese"),
   
   plotOutput(outputId = "plot"),
   
@@ -34,42 +34,42 @@ ui <- fluidPage(
     
     column(
       5,
-      # MÈdia da hipÛtese nula
-      sliderInput(inputId = "media.0", label = "MÈdia hipotÈtica da populaÁ„o", min = -5, max = 5, value = 0, step = .1, width = "100%"),
+      # M√©dia da hip√≥tese nula
+      sliderInput(inputId = "media.0", label = "M√©dia hipot√©tica da popula√ß√£o", min = -5, max = 5, value = 0, step = .1, width = "100%"),
       
-      # MÈdia da hipÛtese alternativa
-      sliderInput(inputId = "media.1", label = "MÈdia da populaÁ„o", min = -5, max = 5, value = 3, step = .1, width = "100%"),
+      # M√©dia da hip√≥tese alternativa
+      sliderInput(inputId = "media.1", label = "M√©dia da popula√ß√£o", min = -5, max = 5, value = 3, step = .1, width = "100%"),
       
-      # Desvio padr„o
-      sliderInput(inputId = "sd", label = "Desvio padr„o", value = 1, min = .5, max = 2, step = .1, width = "100%")
+      # Desvio padr√£o
+      sliderInput(inputId = "sd", label = "Desvio padr√£o", value = 1, min = .5, max = 2, step = .1, width = "100%")
     ),
     
     column(
       5,
       
-      # NÌvel de signific‚ncia
-      sliderInput(inputId = "alfa", label = "NÌvel de signific‚ncia", min = 0, max = 1, value = .05, step = .01, width = "100%"),
+      # N√≠vel de signific√¢ncia
+      sliderInput(inputId = "alfa", label = "N√≠vel de signific√¢ncia", min = 0, max = 1, value = .05, step = .01, width = "100%"),
       
       # Tipo de teste
-      selectInput(inputId = "tipo.teste", label = "Natureza do teste", choices = c("¿ esquerda", "¿ direita", "Bilateral"), selected = "¿ direita", width = "100%"),
+      selectInput(inputId = "tipo.teste", label = "Natureza do teste", choices = c("√Ä esquerda", "√Ä direita", "Bilateral"), selected = "√Ä direita", width = "100%"),
       
-      # Insere o valor da estatÌstica de teste
-      conditionalPanel(condition = "input.p_ligado == true", numericInput(inputId = "estat.teste", label = "EstatÌstica de teste", value = 2, min = -10, max = 10, step = .01, width = "100%"))     
+      # Insere o valor da estat√≠stica de teste
+      conditionalPanel(condition = "input.p_ligado == true", numericInput(inputId = "estat.teste", label = "Estat√≠stica de teste", value = 2, min = -10, max = 10, step = .01, width = "100%"))     
     ),
     
     column(
       2,
       
       wellPanel(
-        ### Seleciona os gr·ficos
-        ## HipÛtese nula
-        p(strong("HipÛtese nula")),
+        ### Seleciona os gr√°ficos
+        ## Hip√≥tese nula
+        p(strong("Hip√≥tese nula")),
         # Preenchimento
         checkboxInput(inputId = "p.h.nula", label = "Preenchimento", value = TRUE),
         # Curva
         checkboxInput(inputId = "c.h.nula", label = "Curva", value = TRUE),
-        ## HipÛtese alternativa
-        p(strong("HipÛtese alternativa")),
+        ## Hip√≥tese alternativa
+        p(strong("Hip√≥tese alternativa")),
         # Preenchimento
         checkboxInput(inputId = "p.h.alt", label = "Preenchimento", value = TRUE),
         # Curva
@@ -77,8 +77,8 @@ ui <- fluidPage(
         
         br(),
         
-        # Libera a utilizaÁ„o do p-value
-        checkboxInput(inputId = "p_ligado", label = "Inserir estatÌstica de teste")
+        # Libera a utiliza√ß√£o do p-value
+        checkboxInput(inputId = "p_ligado", label = "Inserir estat√≠stica de teste")
       )
       
     )
@@ -90,13 +90,13 @@ ui <- fluidPage(
   fluidRow(
     column(
       4,
-      HTML('<a rel="license" href="https://www.gnu.org/licenses/gpl-3.0.pt-br.html"><img alt="LicenÁa GNU GLPv3" style="border-width:0" src="https://www.gnu.org/graphics/gplv3-with-text-84x42.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">VisualizaÁ„o interativa de testes de hipÛtese</span> de <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Pedro Diniz Guglielmeli</span> est· licenciado com uma LicenÁa <a rel="license" href="https://www.gnu.org/licenses/gpl-3.0.pt-br.html">GNU GLPv3</a>.')
+      HTML('<a rel="license" href="https://www.gnu.org/licenses/gpl-3.0.pt-br.html"><img alt="Licen√ßa GNU GLPv3" style="border-width:0" src="https://www.gnu.org/graphics/gplv3-with-text-84x42.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Visualiza√ß√£o interativa de testes de hip√≥tese</span> de <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Pedro Diniz Guglielmeli</span> est√° licenciado com uma Licen√ßa <a rel="license" href="https://www.gnu.org/licenses/gpl-3.0.pt-br.html">GNU GLPv3</a>.')
     ),
     column(
       8,
       p("Feito por Pedro Diniz Guglielmeli", align = "right"),
-      p(paste("Vers„o ", vers„o), align = "right"),
-      p(a(href = "https://github.com/paulk2jonas/VITH", "CÛdigo fonte"), align = "right")
+      p(paste("Vers√£o ", vers√£o), align = "right"),
+      p(a(href = "https://github.com/paulk2jonas/VITH", "C√≥digo fonte"), align = "right")
     )
   )
   
@@ -107,11 +107,11 @@ server <- function(input, output) {
   # Cria os valores para o eixo x
   eixo.x <- data.frame(x = c(-7, 7))
   
-  # Altera o alfa para a montagem do gr·fico
+  # Altera o alfa para a montagem do gr√°fico
   alfa.1 <- reactive({
-    if (input$tipo.teste == "¿ esquerda") {
+    if (input$tipo.teste == "√Ä esquerda") {
       input$alfa
-    } else if (input$tipo.teste == "¿ direita") {
+    } else if (input$tipo.teste == "√Ä direita") {
       1 - input$alfa
     } else if (input$tipo.teste == "Bilateral") {
       input$alfa / 2
@@ -119,85 +119,85 @@ server <- function(input, output) {
   })
   alfa.2 <- reactive(1 - input$alfa / 2)
   
-  # Cria o ponto crÌtico do teste
-  ponto.crÌtico <- reactive(qnorm(p = alfa.1(), mean = input$media.0, sd = input$sd))
-  ponto.crÌtico.2 <- reactive(qnorm(p = alfa.2(), mean = input$media.0, sd = input$sd))
+  # Cria o ponto cr√≠tico do teste
+  ponto.critico <- reactive(qnorm(p = alfa.1(), mean = input$media.0, sd = input$sd))
+  ponto.critico.2 <- reactive(qnorm(p = alfa.2(), mean = input$media.0, sd = input$sd))
   
-  ## Cria os limites a serem usados pelo gr·fico
-  # Limites para poder e ·rea de rejeiÁ„o em testes unilaterais, ou poder e ·rea de rejeiÁ„o ‡ esquerda em testes bilaterais
+  ## Cria os limites a serem usados pelo gr√°fico
+  # Limites para poder e √°rea de rejei√ß√£o em testes unilaterais, ou poder e √°rea de rejei√ß√£o √† esquerda em testes bilaterais
   pr <- reactive({
     if (input$alfa == 0) {
       c(NA, NA)
     } else if (input$alfa == 1) {
       if (input$tipo.teste == "Bilateral") {
-        c(-7, ponto.crÌtico())
+        c(-7, ponto.critico())
       } else {
         c(-7, 7)
       }
     } else {
-      if (input$tipo.teste == "¿ esquerda") {
-        c(-7, ponto.crÌtico())
-      } else if (input$tipo.teste == "¿ direita") {
-        c(ponto.crÌtico(), 7)
+      if (input$tipo.teste == "√Ä esquerda") {
+        c(-7, ponto.critico())
+      } else if (input$tipo.teste == "√Ä direita") {
+        c(ponto.critico(), 7)
       } else if (input$tipo.teste == "Bilateral") {
-        c(-7, ponto.crÌtico())
+        c(-7, ponto.critico())
       }
     }
   })
-  # Limites para poder e ·rea de rejeiÁ„o ‡ direita em testes bilaterais
+  # Limites para poder e √°rea de rejei√ß√£o √† direita em testes bilaterais
   pr.2 <- reactive({
-    if (input$tipo.teste == "¿ esquerda") {
+    if (input$tipo.teste == "√Ä esquerda") {
       c(NA, NA)
-    } else if (input$tipo.teste == "¿ direita") {
+    } else if (input$tipo.teste == "√Ä direita") {
       c(NA, NA)
     } else if (input$tipo.teste == "Bilateral") {
-      c(ponto.crÌtico.2(), 7)
+      c(ponto.critico.2(), 7)
     }
   })
-  # Limites para ·rea beta e restante da hipÛtese nula
+  # Limites para √°rea beta e restante da hip√≥tese nula
   bh <- reactive({
     if (input$alfa == 0) {
       c(-7, 7)
     } else if (input$alfa == 1) {
       c(NA, NA)
     } else {
-      if (input$tipo.teste == "¿ esquerda") {
-        c(ponto.crÌtico(), 7)
-      } else if (input$tipo.teste == "¿ direita") {
-        c(-7, ponto.crÌtico())
+      if (input$tipo.teste == "√Ä esquerda") {
+        c(ponto.critico(), 7)
+      } else if (input$tipo.teste == "√Ä direita") {
+        c(-7, ponto.critico())
       } else if (input$tipo.teste == "Bilateral") {
-        c(ponto.crÌtico(), ponto.crÌtico.2())
+        c(ponto.critico(), ponto.critico.2())
       }
     }
   })
   
-  ## Cria o gr·fico da hipÛtese alternativa
-  # Cria a ·rea de poder
+  ## Cria o gr√°fico da hip√≥tese alternativa
+  # Cria a √°rea de poder
   poder <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.1, sd = input$sd), geom = "area", xlim = pr(), fill = azul.esc, alpha = .3))
   poder.2 <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.1, sd = input$sd), geom = "area", xlim = pr.2(), fill = azul.esc, alpha = .3))
-  # Cria a ·rea beta
+  # Cria a √°rea beta
   area.beta <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.1, sd = input$sd), geom = "area", xlim = bh(), fill = azul.cla, alpha = .3))
   # Cria o outline
   curva.alt <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.1, sd = input$sd), size = .75, col = azul.esc))
   
-  # Cria o gr·fico da hipÛtese nula
-  # Cria a ·rea de 1 - alfa
+  # Cria o gr√°fico da hip√≥tese nula
+  # Cria a √°rea de 1 - alfa
   area.nula <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.0, sd = input$sd), geom = "area", xlim = bh(), fill = verm.cla, alpha = .3))
-  # Cria a ·rea de rejeiÁ„o
+  # Cria a √°rea de rejei√ß√£o
   area.alfa <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.0, sd = input$sd), geom = "area", xlim = pr(), fill = verm.esc, alpha = .3))
   area.alfa.2 <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.0, sd = input$sd), geom = "area", xlim = pr.2(), fill = verm.esc , alpha = .3))
   # Cria o outline
   curva.nula <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.0, sd = input$sd), size = .75, col = verm.esc))
 
-  # Cria a camada do ponto crÌtico
-  pcrÌtico <- reactive(geom_point(aes(x = ponto.crÌtico(), y = 0), shape = 21, fill = verm.esc, col = "white", size = 4, stroke = 2))
-  pcrÌtico.2 <- reactive(geom_point(aes(x = ponto.crÌtico.2(), y = 0), shape = 21, fill = verm.esc, col = "white", size = 4, stroke = 2))
+  # Cria a camada do ponto cr√≠tico
+  pcritico <- reactive(geom_point(aes(x = ponto.critico(), y = 0), shape = 21, fill = verm.esc, col = "white", size = 4, stroke = 2))
+  pcritico.2 <- reactive(geom_point(aes(x = ponto.critico.2(), y = 0), shape = 21, fill = verm.esc, col = "white", size = 4, stroke = 2))
   
-  # Cria a ·rea do p-value
+  # Cria a √°rea do p-value
   xlim.p <- reactive({
-    if (input$tipo.teste == "¿ esquerda") {
+    if (input$tipo.teste == "√Ä esquerda") {
       c(-7, input$estat.teste)
-    } else if (input$tipo.teste == "¿ direita") {
+    } else if (input$tipo.teste == "√Ä direita") {
       c(input$estat.teste, 7)
     } else if (input$tipo.teste == "Bilateral") {
       x.1 <- input$media.0 - abs(abs(input$media.0) - abs(input$estat.teste))
@@ -215,12 +215,12 @@ server <- function(input, output) {
   area.p <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.0, sd = input$sd), geom = "area", xlim = xlim.p(), fill = amarelo, alpha = .5))
   area.p.2 <- reactive(stat_function(fun = dnorm, args = list(mean = input$media.0, sd = input$sd), geom = "area", xlim = xlim.p.2(), fill = amarelo, alpha = .5))
 
-  # Cria a camada da estatÌstica de teste padronizada
+  # Cria a camada da estat√≠stica de teste padronizada
   pteste <- reactive(geom_point(aes(x = input$estat.teste, y = 0), shape = 21, fill = amarelo, col = "white", size = 4, stroke = 2))
   
-  # Cria as "linhas crÌticas"
-  linha.crÌtica <- reactive(geom_vline(aes(xintercept = ponto.crÌtico())))
-  linha.crÌtica.2 <- reactive(geom_vline(aes(xintercept = ponto.crÌtico.2())))
+  # Cria as "linhas cr√≠ticas"
+  linha.cr√≠tica <- reactive(geom_vline(aes(xintercept = ponto.critico())))
+  linha.cr√≠tica.2 <- reactive(geom_vline(aes(xintercept = ponto.critico.2())))
   
   ## Dados relevantes
   # Calcula os dados
@@ -231,9 +231,9 @@ server <- function(input, output) {
     } else if (input$alfa == 1) {
       0
     } else {
-      if (input $tipo.teste == "¿ esquerda") {
+      if (input $tipo.teste == "√Ä esquerda") {
         pnorm(pr()[2], mean = input$media.1, sd = input$sd, lower.tail = FALSE)
-      } else if (input$tipo.teste == "¿ direita") {
+      } else if (input$tipo.teste == "√Ä direita") {
         pnorm(pr()[1], mean = input$media.1, sd = input$sd)
       } else if (input$tipo.teste == "Bilateral") {
         pnorm(pr()[2], mean = input$media.1, sd = input$sd) + pnorm(pr.2()[1], mean = input$media.1, sd = input$sd, lower.tail = FALSE)
@@ -242,9 +242,9 @@ server <- function(input, output) {
   })
   poder.t <- reactive(1 - beta.t())
   p.value.t <- reactive({
-    if (input $tipo.teste == "¿ esquerda") {
+    if (input $tipo.teste == "√Ä esquerda") {
       pnorm(xlim.p()[2], mean = input$media.0, sd = input$sd)
-    } else if (input$tipo.teste == "¿ direita") {
+    } else if (input$tipo.teste == "√Ä direita") {
       pnorm(xlim.p()[1], mean = input$media.0, sd = input$sd, lower.tail = FALSE)
     } else if (input$tipo.teste == "Bilateral") {
       pnorm(xlim.p()[2], mean = input$media.0, sd = input$sd) + pnorm(xlim.p.2()[1], mean = input$media.0, sd = input$sd, lower.tail = FALSE)
@@ -256,51 +256,51 @@ server <- function(input, output) {
   poder.t.g <- reactive(annotate(geom = "text", x = -7, y = .61, label = bquote(Poder == .(poder.t())), hjust = 0, size = 7))
   p.value.t.g <- reactive(annotate(geom = "text", x = -7, y = .54, label = bquote(Valor~p == .(p.value.t())), hjust = 0, size = 7))
   
-  # Plotagem de saÌda
+  # Plotagem de sa√≠da
   output$plot <- renderPlot({
     
     myplot <- ggplot(data = eixo.x, aes(x = x))
     
-    # Plota as "linhas crÌticas"
+    # Plota as "linhas cr√≠ticas"
     if (input$tipo.teste == "Bilateral") {
-      myplot <- myplot + linha.crÌtica() + linha.crÌtica.2()
+      myplot <- myplot + linha.cr√≠tica() + linha.cr√≠tica.2()
     } else {
-      myplot <- myplot + linha.crÌtica()
+      myplot <- myplot + linha.cr√≠tica()
     }
     
-    # Plota a ·rea da hipÛtese alternativa
+    # Plota a √°rea da hip√≥tese alternativa
     if (input$p.h.alt == TRUE) {
       myplot <- myplot + poder() + poder.2() + area.beta()
     }
     
-    # Plota a ·rea da hipÛtese nula
+    # Plota a √°rea da hip√≥tese nula
     if (input$p.h.nula == TRUE) {
       myplot <- myplot + area.nula() + area.alfa() + area.alfa.2()
     }
     
-    # Plota a ·rea do p-value
+    # Plota a √°rea do p-value
     if (input$p_ligado == TRUE) {
       myplot <- myplot + area.p() + area.p.2()
     }
     
-    ## Plota as curvas de distribuiÁ„o
-    # Curva da distribuiÁ„o alternativa
+    ## Plota as curvas de distribui√ß√£o
+    # Curva da distribui√ß√£o alternativa
     if (input$c.h.alt == TRUE) {
       myplot <- myplot + curva.alt()
     }
-    # Curva da distribuiÁ„o nula
+    # Curva da distribui√ß√£o nula
     if (input$c.h.nula == TRUE) {
       myplot <- myplot + curva.nula()
     }
 
-    # Plota o ponto da estatÌstica de teste
+    # Plota o ponto da estat√≠stica de teste
     if (input$p_ligado) myplot <- myplot + pteste()
 
-    # Plota os pontos crÌticos
+    # Plota os pontos cr√≠ticos
     if (input$tipo.teste == "Bilateral") {
-      myplot <- myplot + pcrÌtico() + pcrÌtico.2()
+      myplot <- myplot + pcritico() + pcritico.2()
     } else {
-      myplot <- myplot + pcrÌtico()
+      myplot <- myplot + pcritico()
     }
     
     # Plota os dados relevantes
@@ -310,7 +310,7 @@ server <- function(input, output) {
       myplot <- myplot + alfa.t.g() + beta.t.g() + poder.t.g()
     }
     
-    # Plota o gr·fico final
+    # Plota o gr√°fico final
     myplot + 
       coord_cartesian(xlim = c(-7, 7), ylim = c(0, .8)) + 
       theme_void() + 
