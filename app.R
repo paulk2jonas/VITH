@@ -1,5 +1,5 @@
 # VITH - Visualização Interativa de testes de hipótese
-versão <- 1.1
+versao <- 1.1
 # Pedro Diniz Guglielmeli
 
 #- - - - - - - - - - - - - - - - - - - -
@@ -95,7 +95,7 @@ ui <- fluidPage(
     column(
       8,
       p("Feito por Pedro Diniz Guglielmeli", align = "right"),
-      p(paste("Versão ", versão), align = "right"),
+      p(paste("Versão ", versao), align = "right"),
       p(a(href = "https://github.com/paulk2jonas/VITH", "Código fonte"), align = "right")
     )
   )
